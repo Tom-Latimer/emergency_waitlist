@@ -1,16 +1,28 @@
 # syntax=docker/dockerfile:1
 
-FROM composer:lts as deps
-WORKDIR /app
-RUN --mount=type=bind,source=composer.json,target=composer.json \
-    --mount=type=bind,source=composer.lock,target=composer.lock \
-    --mount=type=cache,target=/tmp/cache \
-    composer install --no-dev --no-interaction
+FROM php:8.3.9-cli
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    git \
+    unzip \
+    && docker-php-ext-install pdo pdo_pgsql
 
-FROM php:8.3.9-cli as final
-RUN docker-php-ext-install pdo pdo_pgsql
-COPY --from=deps /app/vendor/ /var/www/html/vendor
-COPY ./src /var/www/html
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Set the working directory
 WORKDIR /var/www/html
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "."]
+
+# Copy the Composer files and install dependencies
+COPY composer.json composer.lock ./
+
+# Copy the rest of your application files
+COPY . .
+
+RUN composer install --no-dev --optimize-autoloader
+
+# Expose port 8000 for the local PHP server
+EXPOSE 8000
+
+# Command to run the PHP local development server
+CMD ["php", "-S", "0.0.0.0:8000"]
