@@ -1,9 +1,9 @@
 <?php
 $host = 'localhost';
 $port = 5432;
-$dbname = 'em_wait';
+$dbname = 'em_wait_ash_tom';
 $user = 'postgres';
-$password = '1234'; // Replace 'your_password' with the actual password.
+$password = '1234';
 
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 $options = [

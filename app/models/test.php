@@ -11,7 +11,7 @@ require 'User.php';
 
 //User::remove($pdo, 'A');
 //echo "New user inserted successfully!";
-$user = User::findByPatientId($pdo, 'AJ2024');
+$user = User::findByPatientId($pdo, 'PID001');
 
 // Check if a user was found and display their information
 if ($user) {

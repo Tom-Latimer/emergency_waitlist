@@ -114,7 +114,6 @@ class User {
 
     public static function remove(PDO $pdo, $patientId) {
         if (!empty($patientId)) {
-            // Prepare the DELETE statement
             $stmt = $pdo->prepare("DELETE FROM public.patient WHERE patient_id = ?");
             // Execute the statement with patientId
             $success = $stmt->execute([$patientId]);
