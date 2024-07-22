@@ -12,17 +12,17 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-primary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Heem Hospital</a>
+            <a class="navbar-brand">Heem Hospital</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active">Home</a>
+                        <a class="nav-link active" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">Register</a>
+                        <a class="nav-link" href="register.php">Register</a>
                     </li>
                 </ul>
             </div>
@@ -50,9 +50,15 @@
         <div class="d-flex flex-column align-items-center justify-content-center gap-3 w-25 ps-4 pe-4 bg-body-tertiary">
             <h1>Welcome to Heem Hospital!</h1>
             <p>Where exceptional care meets cutting-edge technology. Our dedicated team of healthcare professionals is committed to providing the highest standard of patient care in a compassionate and nurturing environment. From routine check-ups to advanced medical treatments, Heem Hospital is here to support your health and well-being every step of the way. Discover the difference at Heem Hospital, where your health is our priority.</p>
-            <button class="btn btn-primary btn-l">Register Today!</button>
+            <button id="registerBtn" class="btn btn-primary btn-l" href="register.php">Register Today!</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        const btn = document.getElementById('registerBtn');
+        btn.addEventListener('click', () => {
+            window.location.href = 'register.php';
+        });
+    </script>
 </body>
 </html>
