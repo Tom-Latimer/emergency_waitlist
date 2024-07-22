@@ -1,25 +1,29 @@
 <?php
+
+require 'db.php';
 class User {
     //Properties
+    private $pdo;
     private $firstName;
     private $lastName;
     private $email;
     private $phone;
     private $patientId;
     private $homeAddress;
-    private $age;
+    private $dob;
     private $medicine;
     private $bloodType;
 
     // Constructor
-    public function __construct($firstName, $lastName, $email, $phone, $patientId, $homeAddress, $age, $medicine, $bloodType) {
+    public function __construct($pdo, $firstName, $lastName, $email, $phone, $patientId, $homeAddress, $dob, $medicine, $bloodType) {
+        $this->pdo = $pdo;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->phone = $phone;
         $this->patientId = $patientId;
         $this->homeAddress = $homeAddress;
-        $this->age = $age;
+        $this->dob = $dob;
         $this->medicine = $medicine;
         $this->bloodType = $bloodType;
     }
@@ -50,8 +54,8 @@ class User {
         $this->homeAddress = $homeAddress;
     }
     
-    public function setAge($age) {
-        $this->age = $age;
+    public function setdob($dob) {
+        $this->dob = $dob;
     }
     
     public function setMedicine($medicine) {
@@ -63,7 +67,6 @@ class User {
     }
     
 
-   
 
     // Getters
     public function getFirstName() {
@@ -90,8 +93,8 @@ class User {
         return $this->homeAddress;
     }
     
-    public function getAge() {
-        return $this->age;
+    public function getdob() {
+        return $this->dob;
     }
     
     public function getMedicine() {
@@ -101,5 +104,46 @@ class User {
     public function getBloodType() {
         return $this->bloodType;
     }
+    public function save() {
+        // Insert new patient
+        $stmt = $this->pdo->prepare("INSERT INTO public.patient (first_name, last_name, email, phone, patient_id, home_address, dob, medicine, blood_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$this->firstName, $this->lastName, $this->email, $this->phone, $this->patientId, $this->homeAddress, $this->dob, $this->medicine, $this->bloodType]);
+        //$this->patientId = $this->pdo->lastInsertId(); // Set patientId if it's the primary key
+        
+    }
+
+    public static function remove(PDO $pdo, $patientId) {
+        if (!empty($patientId)) {
+            // Prepare the DELETE statement
+            $stmt = $pdo->prepare("DELETE FROM public.patient WHERE patient_id = ?");
+            // Execute the statement with patientId
+            $success = $stmt->execute([$patientId]);
+        } 
+    }
+
+
+    public static function findByPatientId(PDO $pdo, $patientId) {
+        $stmt = $pdo->prepare("SELECT * FROM public.patient WHERE patient_id = ?");
+        $stmt->execute([$patientId]);
+        $data = $stmt->fetch();
+
+        if ($data) {
+            return new self(
+                $pdo,
+                $data['first_name'],
+                $data['last_name'],
+                $data['email'],
+                $data['phone'],
+                $data['patient_id'],
+                $data['home_address'],
+                $data['dob'],
+                $data['medicine'],
+                $data['blood_type']
+            );
+        } else {
+            return null;
+        }
+    }
+
     
 }
