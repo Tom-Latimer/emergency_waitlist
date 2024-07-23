@@ -112,6 +112,30 @@ class User {
         
     }
 
+    public function updateUser($updates) {
+        $updateQuery = "UPDATE public.patient SET ";
+        $updateParts = [];
+        $params = [];
+
+        // Dynamically build the SQL query based on the fields provided in $updates
+        foreach ($updates as $key => $value) {
+            if (property_exists($this, $key) && $value !== $this->$key) {
+                $updateParts[] = "$key = ?";
+                $params[] = $value;
+                $this->$key = $value; // Update the property value
+            }
+        }
+
+        if (!empty($updateParts)) {
+            $updateQuery .= implode(', ', $updateParts);
+            $updateQuery .= " WHERE patient_id = ?";
+            $params[] = $this->patientId;
+
+            $stmt = $this->pdo->prepare($updateQuery);
+            $stmt->execute($params);
+        }
+    }
+
     public static function remove(PDO $pdo, $patientId) {
         if (!empty($patientId)) {
             $stmt = $pdo->prepare("DELETE FROM public.patient WHERE patient_id = ?");
