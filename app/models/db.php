@@ -1,9 +1,9 @@
 <?php
-$host = 'localhost';
+$host = getenv('DB_HOST');
 $port = 5432;
-$dbname = 'em_wait_ash_tom';
-$user = 'postgres';
-$password = '1234';
+$dbname = getenv('DB_NAME') ?: 'em_wait_ash_tom';
+$user = getenv('DB_USER') ?: 'postgres';
+$password = getenv('DB_PASSWORD') ?: '1234';
 
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 $options = [

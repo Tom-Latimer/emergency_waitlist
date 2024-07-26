@@ -1,50 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const data = [
-        {
-          "patientId": "1",
-          "firstName": "Alice",
-          "lastName": "Johnson",
-          "email": "alice.johnson@example.com",
-          "phone": "123 456-7890",
-          "homeAddress": "789 Maple Street, Rivertown, TX",
-          "dateOfBirth": "1975-08-22",
-          "bloodType": "B+",
-          "medicine": "Metformin, Lisinopril"
-        },
-        {
-          "patientId": "2",
-          "firstName": "Bob",
-          "lastName": "Smith",
-          "email": "bob.smith@example.com",
-          "phone": "987 654-3210",
-          "homeAddress": "456 Pine Avenue, Hilltown, CA",
-          "dateOfBirth": "1985-12-11",
-          "bloodType": "O-",
-          "medicine": "Atorvastatin"
-        },
-        {
-          "patientId": "3",
-          "firstName": "Carol",
-          "lastName": "Taylor",
-          "email": "carol.taylor@example.com",
-          "phone": "345 678-9012",
-          "homeAddress": "123 Birch Road, Lakeview, FL",
-          "dateOfBirth": "1992-03-30",
-          "bloodType": "A-",
-          "medicine": "Amlodipine, Omeprazole"
-        },
-        {
-          "patientId": "4",
-          "firstName": "David",
-          "lastName": "Brown",
-          "email": "david.brown@example.com",
-          "phone": "654 321-0987",
-          "homeAddress": "321 Cedar Lane, Forestville, WA",
-          "dateOfBirth": "1968-07-17",
-          "bloodType": "AB+",
-          "medicine": "Gabapentin"
-        }
-      ];
+    // const data = [
+    //     {
+    //       "patientId": "1",
+    //       "firstName": "Alice",
+    //       "lastName": "Johnson",
+    //       "email": "alice.johnson@example.com",
+    //       "phone": "123 456-7890",
+    //       "homeAddress": "789 Maple Street, Rivertown, TX",
+    //       "dateOfBirth": "1975-08-22",
+    //       "bloodType": "B+",
+    //       "medicine": "Metformin, Lisinopril"
+    //     },
+    //     {
+    //       "patientId": "2",
+    //       "firstName": "Bob",
+    //       "lastName": "Smith",
+    //       "email": "bob.smith@example.com",
+    //       "phone": "987 654-3210",
+    //       "homeAddress": "456 Pine Avenue, Hilltown, CA",
+    //       "dateOfBirth": "1985-12-11",
+    //       "bloodType": "O-",
+    //       "medicine": "Atorvastatin"
+    //     },
+    //     {
+    //       "patientId": "3",
+    //       "firstName": "Carol",
+    //       "lastName": "Taylor",
+    //       "email": "carol.taylor@example.com",
+    //       "phone": "345 678-9012",
+    //       "homeAddress": "123 Birch Road, Lakeview, FL",
+    //       "dateOfBirth": "1992-03-30",
+    //       "bloodType": "A-",
+    //       "medicine": "Amlodipine, Omeprazole"
+    //     },
+    //     {
+    //       "patientId": "4",
+    //       "firstName": "David",
+    //       "lastName": "Brown",
+    //       "email": "david.brown@example.com",
+    //       "phone": "654 321-0987",
+    //       "homeAddress": "321 Cedar Lane, Forestville, WA",
+    //       "dateOfBirth": "1968-07-17",
+    //       "bloodType": "AB+",
+    //       "medicine": "Gabapentin"
+    //     }
+    //   ];
     
     const patientAccordion = document.getElementById('patientAccordion');
     createPatientRecords(patientAccordion, data);
@@ -113,7 +113,7 @@ const template = (index, patientId, firstName, lastName, email, phone, homeAddre
                 </h2>
                 <div id="collapse${index}" class="accordion-collapse collapse" data-bs-parent="#patientAccordion">
                     <div class="accordion-body">
-                        <form action="/public/api.php?action=update&patientId=${patientId}" method="post" class="pt-4 needs-validation" novalidate>
+                        <form action="/app/api.php?action=update&patientId=${patientId}" method="post" class="pt-4 needs-validation" novalidate>
                             <fieldset disabled>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">

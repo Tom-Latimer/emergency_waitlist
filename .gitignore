@@ -1,4 +1,6 @@
 .vscode/
+.devcontainer/
+.github/
 *.zip
 .DS_Store
 vendor/

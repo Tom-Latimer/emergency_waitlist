@@ -17,13 +17,15 @@ try {
                     $_POST['lastName'],
                     $_POST['email'],
                     $_POST['phone'],
-                    $_POST['patientId'],
+                    NULL,
                     $_POST['homeAddress'],
-                    $_POST['dob'],
+                    $_POST['dateOfBirth'],
                     $_POST['medicine'],
                     $_POST['bloodType']
                 );
                 $user->save();  // Save the new user to the database
+                error_log('Successfully added user');
+                error_log('Headers sent: ' . implode(', ', headers_list()));
                 echo json_encode(['status' => 'success', 'message' => 'User added']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);

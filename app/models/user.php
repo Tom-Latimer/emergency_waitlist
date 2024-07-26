@@ -106,8 +106,8 @@ class User {
     }
     public function save() {
         // Insert new patient
-        $stmt = $this->pdo->prepare("INSERT INTO public.patient (first_name, last_name, email, phone, patient_id, home_address, dob, medicine, blood_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$this->firstName, $this->lastName, $this->email, $this->phone, $this->patientId, $this->homeAddress, $this->dob, $this->medicine, $this->bloodType]);
+        $stmt = $this->pdo->prepare("INSERT INTO public.patient (first_name, last_name, email, phone, home_address, dob, medicine, blood_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$this->firstName, $this->lastName, $this->email, $this->phone, $this->homeAddress, $this->dob, $this->medicine, $this->bloodType]);
         //$this->patientId = $this->pdo->lastInsertId(); // Set patientId if it's the primary key
         
     }
