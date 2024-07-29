@@ -50,7 +50,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  //Validate patient intake form
-  const firstName = document.getElementById('firstName');
-
 });
