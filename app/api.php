@@ -63,20 +63,22 @@ try {
             break;
 
             case "updateUser":
+                error_log('Api hit: updateUser');
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patientId'])) {
+                    error_log('Post statemet passed');
                     $patientId = $_POST['patientId'];
                     $user = User::findByPatientId($pdo, $patientId);
-            
+                    error_log('Patient found to update');
                     if ($user) {
                         $updates = [
-                            'firstName' => $_POST['firstName'] ?? $user->getFirstName(),
-                            'lastName' => $_POST['lastName'] ?? $user->getLastName(),
+                            'first_name' => $_POST['firstName'] ?? $user->getFirstName(),
+                            'last_name' => $_POST['lastName'] ?? $user->getLastName(),
                             'email' => $_POST['email'] ?? $user->getEmail(),
                             'phone' => $_POST['phone'] ?? $user->getPhone(),
-                            'homeAddress' => $_POST['homeAddress'] ?? $user->getHomeAddress(),
-                            'dob' => $_POST['dob'] ?? $user->getdob(),
+                            'home_address' => $_POST['homeAddress'] ?? $user->getHomeAddress(),
+                            'dob' => $_POST['dateOfBirth'] ?? $user->getdob(),
                             'medicine' => $_POST['medicine'] ?? $user->getMedicine(),
-                            'bloodType' => $_POST['bloodType'] ?? $user->getBloodType()
+                            'blood_type' => $_POST['bloodType'] ?? $user->getBloodType()
                         ]; 
                         $user->updateUser($updates);
                         echo json_encode(['status' => 'success', 'message' => 'User updated']);

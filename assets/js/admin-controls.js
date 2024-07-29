@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     $.ajax({
         type: 'GET',
         url: '/app/api.php',
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(response);
             const patientAccordion = document.getElementById('patientAccordion');
             createPatientRecords(patientAccordion, response);
-        }, 
+        },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error('Request failed:');
             console.error('Status:', textStatus);
@@ -30,26 +31,84 @@ function createPatientRecords(container, data) {
         const html = template(index, patient.patientid, patient.firstname, patient.lastname, patient.email, patient.phone, patient.homeaddress, patient.dateofbirth, patient.bloodtype, patient.medicine);
 
         //add it to the container
-        container.insertAdjacentHTML('beforeend', html);        
+        container.insertAdjacentHTML('beforeend', html);
     });
 
     const forms = document.querySelectorAll('.needs-validation');
-  
+
     // Loop over them and event listeners
     Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-            }
-    
-            form.classList.add('was-validated')
-        }, false)
+
+        const modal = new bootstrap.Modal(document.getElementById('admin-modal'));
+        const modalContent = document.querySelector('#admin-modal .modal-body p');
 
         const fieldset = form.querySelector('fieldset');
         const editButton = form.querySelector('.btn-edit');
         const submitButton = form.querySelector('.btn-submit');
         const cancelButton = form.querySelector('.btn-cancel');
+
+        form.addEventListener('submit', event => {
+            //stop default form behaviour, make custom request later
+            event.preventDefault();
+
+            //add class for bootstrap visuals
+            form.classList.add('was-validated');
+            if (!form.checkValidity()) {
+                event.stopPropagation();
+                return;
+            }
+
+            var requestData = $(form).serialize();
+
+            requestData += '&action=updateUser';
+
+            console.log(requestData);
+
+            $.ajax({
+                type: 'POST',
+                url: '/app/api.php',
+                data: requestData,
+                success: function (response) {
+                    if (response.status === 'success') {
+                        form.classList.remove('was-validated');
+                        //make form uneditable
+                        fieldset.disabled = true;
+
+                        //hide and show buttons
+                        editButton.classList.toggle('visually-hidden');
+                        submitButton.classList.toggle('visually-hidden');
+                        cancelButton.classList.toggle('visually-hidden');
+
+                        //display modal message
+                        modalContent.innerText = 'Patient record updated succesfuly';
+                        modal.toggle();
+                    } else {
+                        fieldset.disabled = true;
+
+                        //hide and show buttons
+                        editButton.classList.toggle('visually-hidden');
+                        submitButton.classList.toggle('visually-hidden');
+                        cancelButton.classList.toggle('visually-hidden');
+
+                        modalContent.innerText = 'An error occurred when updating patient record';
+                        modal.toggle();
+                    }
+
+                },
+                error: function (response) {
+                    fieldset.disabled = true;
+
+                    //hide and show buttons
+                    editButton.classList.toggle('visually-hidden');
+                    submitButton.classList.toggle('visually-hidden');
+                    cancelButton.classList.toggle('visually-hidden');
+
+                    modalContent.innerText = 'The request ran into a critical error';
+                    modal.toggle();
+                }
+            });
+
+        }, false);
 
         editButton.addEventListener('click', () => {
             //make form editable
@@ -82,10 +141,11 @@ const template = (index, patientId, firstName, lastName, email, phone, homeAddre
                 </h2>
                 <div id="collapse${index}" class="accordion-collapse collapse" data-bs-parent="#patientAccordion">
                     <div class="accordion-body">
-                        <form action="/app/api.php?action=update&patientId=${patientId}" method="post" class="pt-4 needs-validation" novalidate>
+                        <form method="post" class="pt-4 needs-validation" novalidate>
                             <fieldset disabled>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
+                                        <input type="hidden" name="patientId" value="${patientId}">
                                         <label for="firstName" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Naoki" value="${firstName}" required>
                                         <div class="invalid-feedback">
