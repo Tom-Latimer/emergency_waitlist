@@ -65,7 +65,7 @@ try {
             case "updateUser":
                 error_log('Api hit: updateUser');
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patientId'])) {
-                    error_log('Post statemet passed');
+                    error_log('Post statement passed');
                     $patientId = $_POST['patientId'];
                     $user = User::findByPatientId($pdo, $patientId);
                     error_log('Patient found to update');

@@ -116,25 +116,40 @@ class User {
         $updateQuery = "UPDATE public.patient SET ";
         $updateParts = [];
         $params = [];
-
+    
+        // Define a mapping from object properties to database columns
+        $propertyToDb = [
+            'firstName' => 'first_name',
+            'lastName' => 'last_name',
+            'email' => 'email',
+            'phone' => 'phone',
+            'patientId' => 'patient_id',
+            'homeAddress' => 'home_address',
+            'dob' => 'dob',
+            'medicine' => 'medicine',
+            'bloodType' => 'blood_type'
+        ];
+    
         // Dynamically build the SQL query based on the fields provided in $updates
         foreach ($updates as $key => $value) {
-            if (property_exists($this, $key) && $value !== $this->$key) {
-                $updateParts[] = "$key = ?";
+            $dbColumn = $propertyToDb[$key] ?? null;
+            if ($dbColumn && $value !== $this->$key) {
+                $updateParts[] = "$dbColumn = ?";
                 $params[] = $value;
                 $this->$key = $value; // Update the property value
             }
         }
-
+    
         if (!empty($updateParts)) {
             $updateQuery .= implode(', ', $updateParts);
             $updateQuery .= " WHERE patient_id = ?";
             $params[] = $this->patientId;
-
+    
             $stmt = $this->pdo->prepare($updateQuery);
             $stmt->execute($params);
         }
     }
+    
 
     public static function remove(PDO $pdo, $patientId) {
         if (!empty($patientId)) {
