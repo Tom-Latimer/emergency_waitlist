@@ -1,53 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // const data = [
-    //     {
-    //       "patientId": "1",
-    //       "firstName": "Alice",
-    //       "lastName": "Johnson",
-    //       "email": "alice.johnson@example.com",
-    //       "phone": "123 456-7890",
-    //       "homeAddress": "789 Maple Street, Rivertown, TX",
-    //       "dateOfBirth": "1975-08-22",
-    //       "bloodType": "B+",
-    //       "medicine": "Metformin, Lisinopril"
-    //     },
-    //     {
-    //       "patientId": "2",
-    //       "firstName": "Bob",
-    //       "lastName": "Smith",
-    //       "email": "bob.smith@example.com",
-    //       "phone": "987 654-3210",
-    //       "homeAddress": "456 Pine Avenue, Hilltown, CA",
-    //       "dateOfBirth": "1985-12-11",
-    //       "bloodType": "O-",
-    //       "medicine": "Atorvastatin"
-    //     },
-    //     {
-    //       "patientId": "3",
-    //       "firstName": "Carol",
-    //       "lastName": "Taylor",
-    //       "email": "carol.taylor@example.com",
-    //       "phone": "345 678-9012",
-    //       "homeAddress": "123 Birch Road, Lakeview, FL",
-    //       "dateOfBirth": "1992-03-30",
-    //       "bloodType": "A-",
-    //       "medicine": "Amlodipine, Omeprazole"
-    //     },
-    //     {
-    //       "patientId": "4",
-    //       "firstName": "David",
-    //       "lastName": "Brown",
-    //       "email": "david.brown@example.com",
-    //       "phone": "654 321-0987",
-    //       "homeAddress": "321 Cedar Lane, Forestville, WA",
-    //       "dateOfBirth": "1968-07-17",
-    //       "bloodType": "AB+",
-    //       "medicine": "Gabapentin"
-    //     }
-    //   ];
-    
-    const patientAccordion = document.getElementById('patientAccordion');
-    createPatientRecords(patientAccordion, data);
+    $.ajax({
+        type: 'GET',
+        url: '/app/api.php',
+        data: {
+            action: 'getAllUsers'
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            const patientAccordion = document.getElementById('patientAccordion');
+            createPatientRecords(patientAccordion, response);
+        }, 
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Request failed:');
+            console.error('Status:', textStatus);
+            console.error('Error:', errorThrown);
+        }
+    });
 });
 
 function createPatientRecords(container, data) {
@@ -58,7 +27,7 @@ function createPatientRecords(container, data) {
     //create the nodes
     data.forEach((patient, index) => {
         //create accordion item for patient record
-        const html = template(index, patient.patientId, patient.firstName, patient.lastName, patient.email, patient.phone, patient.homeAddress, patient.dateOfBirth, patient.bloodType, patient.medicine);
+        const html = template(index, patient.patientid, patient.firstname, patient.lastname, patient.email, patient.phone, patient.homeaddress, patient.dateofbirth, patient.bloodtype, patient.medicine);
 
         //add it to the container
         container.insertAdjacentHTML('beforeend', html);        
@@ -158,8 +127,8 @@ const template = (index, patientId, firstName, lastName, email, phone, homeAddre
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-12">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" id="dob" name="dateOfBirth" value="${dateOfBirth}" required>
+                                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="${dateOfBirth}" required>
                                         <div class="invalid-feedback">
                                             Please enter your date of birth.
                                         </div>

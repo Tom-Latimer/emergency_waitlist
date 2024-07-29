@@ -34,10 +34,13 @@ try {
 
         case 'getAllUsers':
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                error_log('Got request for all users');
                 $stmt = $pdo->query("SELECT patient_id as patientId, first_name as firstName, last_name as lastName, email, phone, home_address as homeAddress, dob as dateOfBirth, blood_type as bloodType, medicine FROM public.patient");
                 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                error_log(json_encode($users));
                 echo json_encode($users);
             }
+            break;
 
         case "getUser":
             // Expecting GET requests to retrieve a user by patientId
