@@ -12,6 +12,11 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg bg-dark-subtle" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">Heem Hospital</a>
+        </div>
+    </nav>
     <div class="container">
         <div class="accordion" id="patientAccordion">
 
