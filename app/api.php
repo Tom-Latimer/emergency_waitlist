@@ -71,14 +71,14 @@ try {
                     error_log('Patient found to update');
                     if ($user) {
                         $updates = [
-                            'first_name' => $_POST['firstName'] ?? $user->getFirstName(),
-                            'last_name' => $_POST['lastName'] ?? $user->getLastName(),
+                            'firstName' => $_POST['firstName'] ?? $user->getFirstName(),
+                            'lastName' => $_POST['lastName'] ?? $user->getLastName(),
                             'email' => $_POST['email'] ?? $user->getEmail(),
                             'phone' => $_POST['phone'] ?? $user->getPhone(),
-                            'home_address' => $_POST['homeAddress'] ?? $user->getHomeAddress(),
+                            'homeAddress' => $_POST['homeAddress'] ?? $user->getHomeAddress(),
                             'dob' => $_POST['dateOfBirth'] ?? $user->getdob(),
                             'medicine' => $_POST['medicine'] ?? $user->getMedicine(),
-                            'blood_type' => $_POST['bloodType'] ?? $user->getBloodType()
+                            'bloodType' => $_POST['bloodType'] ?? $user->getBloodType()
                         ]; 
                         $user->updateUser($updates);
                         echo json_encode(['status' => 'success', 'message' => 'User updated']);

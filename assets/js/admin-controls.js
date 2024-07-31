@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    modal = new bootstrap.Modal(document.getElementById('admin-modal'));
+    modalContent = document.querySelector('#admin-modal .modal-body p');
 
     $.ajax({
         type: 'GET',
@@ -39,13 +41,13 @@ function createPatientRecords(container, data) {
     // Loop over them and event listeners
     Array.from(forms).forEach(form => {
 
-        const modal = new bootstrap.Modal(document.getElementById('admin-modal'));
-        const modalContent = document.querySelector('#admin-modal .modal-body p');
-
+        const accordionItem = form.closest('.accordion-item');
+        const accordionButton = accordionItem.querySelector('.accordion-header .accordion-button');
         const fieldset = form.querySelector('fieldset');
         const editButton = form.querySelector('.btn-edit');
         const submitButton = form.querySelector('.btn-submit');
         const cancelButton = form.querySelector('.btn-cancel');
+
 
         form.addEventListener('submit', event => {
             //stop default form behaviour, make custom request later
@@ -62,7 +64,8 @@ function createPatientRecords(container, data) {
 
             requestData += '&action=updateUser';
 
-            console.log(requestData);
+            const firstName = $(form).find('#firstName').val();
+            const lastName = $(form).find('#lastName').val();
 
             $.ajax({
                 type: 'POST',
@@ -78,6 +81,10 @@ function createPatientRecords(container, data) {
                         editButton.classList.toggle('visually-hidden');
                         submitButton.classList.toggle('visually-hidden');
                         cancelButton.classList.toggle('visually-hidden');
+
+                        const buttonText = accordionButton.innerHTML;
+                        const updatedText = buttonText.replace(/Name:\s*[^<]*/, `Name: ${firstName} ${lastName}`);
+                        accordionButton.innerHTML = updatedText;
 
                         //display modal message
                         modalContent.innerText = 'Patient record updated succesfuly';
