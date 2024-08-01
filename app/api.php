@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'models/db.php'; 
 require_once 'models/user.php';
 
@@ -61,6 +62,28 @@ try {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid request method or missing parameters']);
             }
             break;
+        
+        case "login":
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['patientLogin'])) {
+                $user = User::findByPatientId($pdo, $_GET['patientLogin']);
+                if ($user != null) {
+                    $_SESSION["loggedIn"] = true;
+                    error_log(json_encode($_SESSION["loggedIn"]));
+                    $_SESSION["log_user_info"] = [
+                        'log_patientId' => $user->getPatientId(),
+                        'log_firstName' => $user->getFirstName(),
+                        'log_lastName' => $user->getLastName(),
+                        'log_email' => $user->getEmail(),
+                        'log_phone' => $user->getPhone(),
+                        'log_homeAddress' => $user->getHomeAddress(),
+                        'log_dob' => $user->getdob(),
+                        'log_medicine' => $user->getMedicine(),
+                        'log_bloodType' => $user->getBloodType()
+                    ];
+                }
+            }
+            header('Location: /public/account.php');
+            exit();
 
             case "updateUser":
                 error_log('Api hit: updateUser');
@@ -80,7 +103,20 @@ try {
                             'medicine' => $_POST['medicine'] ?? $user->getMedicine(),
                             'bloodType' => $_POST['bloodType'] ?? $user->getBloodType()
                         ]; 
+                        
                         $user->updateUser($updates);
+                        if (isset($_POST['subAction']) && $_POST['subAction'] === 'login') {
+                            $_SESSION["log_user_info"] = [
+                                'log_firstName' => $_POST['firstName'],
+                                'log_lastName' => $_POST['lastName'],
+                                'log_email' => $_POST['email'],
+                                'log_phone' => $_POST['phone'],
+                                'log_homeAddress' => $_POST['homeAddress'],
+                                'log_dob' => $_POST['dateOfBirth'],
+                                'log_medicine' => $_POST['medicine'],
+                                'log_bloodType' => $_POST['bloodType']
+                            ];
+                        }
                         echo json_encode(['status' => 'success', 'message' => 'User updated']);
                     } else {
                         echo json_encode(['status' => 'error', 'message' => 'User not found']);

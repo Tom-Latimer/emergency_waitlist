@@ -1,4 +1,5 @@
 <?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="register.php">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="account.php">Account</a>
                     </li>
                 </ul>
             </div>
