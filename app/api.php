@@ -85,6 +85,14 @@ try {
             header('Location: /public/account.php');
             exit();
 
+        case "logout":
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                unset($_SESSION["log_user_info"]);
+                $_SESSION["loggedIn"] = false;
+            }
+            header('Location: /public/account.php');
+            exit();
+
             case "updateUser":
                 error_log('Api hit: updateUser');
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patientId'])) {
@@ -103,7 +111,7 @@ try {
                             'medicine' => $_POST['medicine'] ?? $user->getMedicine(),
                             'bloodType' => $_POST['bloodType'] ?? $user->getBloodType()
                         ]; 
-                        
+
                         $user->updateUser($updates);
                         if (isset($_POST['subAction']) && $_POST['subAction'] === 'login') {
                             $_SESSION["log_user_info"] = [

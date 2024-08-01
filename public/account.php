@@ -43,7 +43,8 @@ $userInfo = isset($_SESSION["log_user_info"]) ? $_SESSION["log_user_info"] : [];
                     <legend class="display-6">Patient Account Information</legend>
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                        <input type="hidden" name="patientId" value="<?php echo htmlspecialchars($userInfo['log_patientId'] ?? ''); ?>">
+                            <input type="hidden" name="patientId"
+                                value="<?php echo htmlspecialchars($userInfo['log_patientId'] ?? ''); ?>">
                             <label for="firstName" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Naoki"
                                 value="<?php echo htmlspecialchars($userInfo['log_firstName'] ?? ''); ?>" required>
@@ -135,10 +136,16 @@ $userInfo = isset($_SESSION["log_user_info"]) ? $_SESSION["log_user_info"] : [];
                     </div>
                 </div>
             </form>
+            <div>
+                <form action="/app/api.php" class="row">
+                    <input type="hidden" name="action" value="logout">
+                    <button class="btn btn-warning mb-3 col-auto" type="submit">Logout</button>
+                </form>
+            </div>
         </div>
     <?php else: ?>
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            <h1 class="display-6 mb-1">Welcome!</h1>
+            <h1 class="display-6 mb-1 mt-3">Welcome!</h1>
             <p class="lead mb-3">Please log in to view your account details.</p>
             <form action="/app/api.php" method="get" class="row">
                 <input type="hidden" name="action" value="login">
