@@ -12,12 +12,11 @@ A web-based application for managing patient information. This system allows adm
 ## Table of Contents
 
 - [Installation](#installation)
+- [API Endpoints](#api-endpoints)
+- [Database Schema](#database-schema)
 - [Usage](#usage)
   - [Admin Perspective](#admin-perspective)
   - [Patient Perspective](#patient-perspective)
-- [API Endpoints](#api-endpoints)
-- [Database Schema](#database-schema)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
@@ -157,6 +156,7 @@ Patients interact with the system through a simplified public interface, which a
   - Fill out the registration form with personal and medical details.
   - Submit the form to create a new patient record in the system.
 
+## License
 
 This Markdown formatted `README.md` includes all necessary details to get the project up and running, as well as information on how it can be used from both the admin and patient perspectives.
 
