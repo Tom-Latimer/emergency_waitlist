@@ -9,6 +9,29 @@ Student Number: 300236157
 
 A web-based application for managing patient information. This system allows administrators to add, update, delete, and retrieve patient information, while patients can register their details. The system is built with PHP, JavaScript, and PostgreSQL, and uses Bootstrap for the user interface.
 
+## Technical Overview
+
+- **Technology Stack:**
+  - **Frontend:** HTML, CSS, Bootstrap for responsive design.
+  - **Backend:** PHP serves as the backend language, handling business logic, database operations, and routing.
+  - **Database:** PostgreSQL is used to store patient data securely. The database schema is designed to optimize data retrieval and manipulation for hospital operations.
+  - **API:** RESTful API endpoints are implemented in PHP, facilitating interaction between the frontend and the database.
+
+- **Key Pages:**
+  - **Index Page:** The main entry point of the application where potential patients can find information about hospital services.
+  - **Register Page:** Provides a form for new patients to register, capturing essential information that is securely stored in the PostgreSQL database.
+  - **Account Page:** Allows patients to log in and manage personal details and medical information securely.
+  - **Admin Page:** Enables administrators to access and edit all patient records, providing functionalities like search, update, and delete operations directly interfaced with the backend database.
+
+## Application Functions
+
+- **Patient Registration:** Utilizes PHP forms to capture and validate user input before storing it in the database.
+- **Data Management:** PHP scripts interact with PostgreSQL using PDO (PHP Data Objects) for a secure and efficient database interaction. CRUD (Create, Read, Update, Delete) operations are encapsulated within the API.
+- **Security Measures:** The application implements basic security practices, including data validation and sanitation on the backend to prevent SQL injection and other common security threats.
+
+## Installation and Configuration
+
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -151,10 +174,21 @@ Administrators have full control over the patient management system and can perf
 
 Patients interact with the system through a simplified public interface, which allows them to:
 
-- **Register:**
-  - Visit the public registration page at [http://localhost:8000/public/index.php](http://localhost:8000/public/index.php).
+#### Register:
+  - Visit the public registration page at [http://localhost:8000/public/register.php](http://localhost:8000/public/register.php).
   - Fill out the registration form with personal and medical details.
   - Submit the form to create a new patient record in the system.
+
+#### Login Process
+
+  - **Primary Key Requirement:** To log in, patients must enter a unique identifier, typically their patient ID, which acts as a primary key in the database.
+  - **Security Measures:** The login process is secured to ensure that only the entry of a valid primary key grants access to the patient's account, safeguarding against unauthorized access.
+
+#### Account Management
+
+  - **View and Update Information:** Once logged in, patients can view their personal and medical information. They can update their details, such as contact information and medical history, ensuring their records are always current.
+  - **Logout Mechanism:** To maintain security, patients must log out of their accounts before another user can log in. A logout button is prominently placed at the bottom of the account page. Pressing this button will end the session and redirect the user to the login page.
+
 
 ## License
 
