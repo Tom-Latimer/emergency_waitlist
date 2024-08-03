@@ -5,6 +5,8 @@ Student Number: 300250278
 Name: Ash Bhattarai  
 Student Number: 300236157
 
+Link to Portfolio: https://github.com/Tom-Latimer/portfolio
+
 # Patient Management System
 
 A web-based application for managing patient information. This system allows administrators to add, update, delete, and retrieve patient information, while patients can register their details. The system is built with PHP, JavaScript, and PostgreSQL, and uses Bootstrap for the user interface.
