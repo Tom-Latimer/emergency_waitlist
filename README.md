@@ -12,8 +12,8 @@ A web-based application for managing patient information. This system allows adm
 ## Technical Overview
 
 - **Technology Stack:**
-  - **Frontend:** HTML, CSS, Bootstrap for responsive design.
-  - **Backend:** PHP serves as the backend language, handling business logic, database operations, and routing.
+  - **Frontend:** PHP, CSS, Bootstrap for responsive design.
+  - **Backend:** PHP and Javascript serve as the backend languages, handling business logic, database operations, and routing.
   - **Database:** PostgreSQL is used to store patient data securely. The database schema is designed to optimize data retrieval and manipulation for hospital operations.
   - **API:** RESTful API endpoints are implemented in PHP, facilitating interaction between the frontend and the database.
 
@@ -27,7 +27,6 @@ A web-based application for managing patient information. This system allows adm
 
 - **Patient Registration:** Utilizes PHP forms to capture and validate user input before storing it in the database.
 - **Data Management:** PHP scripts interact with PostgreSQL using PDO (PHP Data Objects) for a secure and efficient database interaction. CRUD (Create, Read, Update, Delete) operations are encapsulated within the API.
-- **Security Measures:** The application implements basic security practices, including data validation and sanitation on the backend to prevent SQL injection and other common security threats.
 
 ## Installation and Configuration
 
