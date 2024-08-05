@@ -183,7 +183,7 @@ Patients interact with the system through a simplified public interface, which a
 #### Login Process
 
   - **Primary Key Requirement:** To log in, patients must enter a unique identifier, typically their patient ID, which acts as a primary key in the database.
-  - **Security Measures:** The login process is secured to ensure that only the entry of a valid primary key grants access to the patient's account, safeguarding against unauthorized access.
+  - **Assumptions:** The login process assumes that in a fully implemented system, the unique login would be sent to user emails. However, this is not implemented in this system so please use any of the following keys to login: 1, 2, 3, 4, or 5.
 
 #### Account Management
 
